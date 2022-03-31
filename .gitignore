@@ -1,0 +1,17 @@
+*__pycache__*
+*.log
+docs/build
+.python-version
+*.DS_Store
+htmlcov
+.coverage
+venv
+.ipynb_checkpoints
+*.pt
+*.csv
+mlruns
+.profile
+.env
+*.html
+_extract
+*pretrained_models*
