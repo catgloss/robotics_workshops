@@ -17,7 +17,9 @@
         <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Unsupervised ASR Tutorial" href="unsupervised_asr.html" />
+    <link rel="prev" title="Robotics Workshops Cluster Guide" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -36,7 +38,30 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Working on the Vector Cluster (General Guide)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#getting-access">Getting Access</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#vpn">VPN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#python-virtual-environment">Python virtual environment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#deployment">Deployment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#flask-app">Flask app</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#client-example">Client example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#streamlit-app">Streamlit app</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#system-diagram">System Diagram</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#components">Components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#storage-database-for-audio-and-results-mongodb">Storage database for audio and results (MongoDB)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#message-broker-rabbitmq">Message Broker (RabbitMQ)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#backend-server-flask">Backend Server (Flask)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#frontend-application-for-live-transcription-streamlit">Frontend application for live transcription (Streamlit)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#monitoring-prometheus-and-grafana">Monitoring (Prometheus and Grafana)</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="unsupervised_asr.html">Unsupervised ASR Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="datasets.html">Datasets</a></li>
 </ul>
@@ -205,7 +230,10 @@ the metrics through a graphical dashboard interface.</p>
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Robotics Workshops Cluster Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="unsupervised_asr.html" class="btn btn-neutral float-right" title="Unsupervised ASR Tutorial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 
