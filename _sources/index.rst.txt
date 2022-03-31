@@ -1,12 +1,10 @@
-Automatic Speech Recognition (ASR)
-==================================
+Robotics Workshops Cluster Guide
+================================
 
-This repo provides:
+This repo provides documentation for:
 
-* A reference implementation to implement an Automatic Speech Recognition (ASR)
-  service. This implementation uses simple open source components, and is deployable
-  using docker.
-* A tutorial to train and run inference of Wav2Veq-U, an unsupervised speech recognition model.
+* General access and guide for working on the Vector cluster
+* Workshop specific instructions on setting up environments, running Docker images etc. 
 
 .. toctree::
    :maxdepth: 2
