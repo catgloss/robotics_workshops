@@ -1,25 +1,21 @@
 
-****************************
-ASR Reference Implementation
-****************************
+*********************************************
+Working on the Vector Cluster (General Guide)
+*********************************************
 
 
-This reference implementation provides an easy to deploy implementation of an
-Automatic Speech Recognition (ASR) service using docker.
+This guide provides the general process for getting access to and running jobs on the vector cluster.
 
 
-Development Environment
+Getting Access
 -----------------------
 
-The development environment has been tested using ``python = 3.8.10`` on ``Ubuntu 20.04`` and
-``Mac OSX 11.5.2``.
+An account on the cluster has already been made for you. You will just need to be able to login to get started. 
 
+VPN 
+^^^
 
-Prerequisites
-^^^^^^^^^^^^^
-
-A prerequisite is the `ffmpeg <https://ffmpeg.org/download.html>`_ library.
-Hence, make sure it is installed, i.e. 
+The cluster has two levels of security. The first is the Vector VPN.
 
 .. code-block:: bash
 

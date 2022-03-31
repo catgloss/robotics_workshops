@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ASR Reference Implementation &mdash; Robotics Workshops Cluster Guide  documentation</title>
+  <title>Working on the Vector Cluster (General Guide) &mdash; Robotics Workshops Cluster Guide  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -17,9 +17,7 @@
         <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Unsupervised ASR Tutorial" href="unsupervised_asr.html" />
-    <link rel="prev" title="Robotics Workshops Cluster Guide" href="index.html" /> 
+    <link rel="search" title="Search" href="search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -38,30 +36,7 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">ASR Reference Implementation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#development-environment">Development Environment</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#python-virtual-environment">Python virtual environment</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#deployment">Deployment</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#flask-app">Flask app</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#client-example">Client example</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#streamlit-app">Streamlit app</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#system-diagram">System Diagram</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#components">Components</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#storage-database-for-audio-and-results-mongodb">Storage database for audio and results (MongoDB)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#message-broker-rabbitmq">Message Broker (RabbitMQ)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#backend-server-flask">Backend Server (Flask)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#frontend-application-for-live-transcription-streamlit">Frontend application for live transcription (Streamlit)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#monitoring-prometheus-and-grafana">Monitoring (Prometheus and Grafana)</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="unsupervised_asr.html">Unsupervised ASR Tutorial</a></li>
 <li class="toctree-l1"><a class="reference internal" href="datasets.html">Datasets</a></li>
 </ul>
@@ -80,9 +55,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>ASR Reference Implementation</li>
+      <li>Working on the Vector Cluster (General Guide)</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/reference_implementation.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/general_setup.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -90,18 +65,15 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="asr-reference-implementation">
-<h1>ASR Reference Implementation<a class="headerlink" href="#asr-reference-implementation" title="Permalink to this headline"></a></h1>
-<p>This reference implementation provides an easy to deploy implementation of an
-Automatic Speech Recognition (ASR) service using docker.</p>
-<section id="development-environment">
-<h2>Development Environment<a class="headerlink" href="#development-environment" title="Permalink to this headline"></a></h2>
-<p>The development environment has been tested using <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">=</span> <span class="pre">3.8.10</span></code> on <code class="docutils literal notranslate"><span class="pre">Ubuntu</span> <span class="pre">20.04</span></code> and
-<code class="docutils literal notranslate"><span class="pre">Mac</span> <span class="pre">OSX</span> <span class="pre">11.5.2</span></code>.</p>
-<section id="prerequisites">
-<h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline"></a></h3>
-<p>A prerequisite is the <a class="reference external" href="https://ffmpeg.org/download.html">ffmpeg</a> library.
-Hence, make sure it is installed, i.e.</p>
+  <section id="working-on-the-vector-cluster-general-guide">
+<h1>Working on the Vector Cluster (General Guide)<a class="headerlink" href="#working-on-the-vector-cluster-general-guide" title="Permalink to this headline"></a></h1>
+<p>This guide provides the general process for getting access to and running jobs on the vector cluster.</p>
+<section id="getting-access">
+<h2>Getting Access<a class="headerlink" href="#getting-access" title="Permalink to this headline"></a></h2>
+<p>An account on the cluster has already been made for you. You will just need to be able to login to get started.</p>
+<section id="vpn">
+<h3>VPN<a class="headerlink" href="#vpn" title="Permalink to this headline"></a></h3>
+<p>The cluster has two levels of security. The first is the Vector VPN.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt install ffmpeg
 </pre></div>
 </div>
@@ -233,10 +205,7 @@ the metrics through a graphical dashboard interface.</p>
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="Robotics Workshops Cluster Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="unsupervised_asr.html" class="btn btn-neutral float-right" title="Unsupervised ASR Tutorial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+          <footer>
 
   <hr/>
 
