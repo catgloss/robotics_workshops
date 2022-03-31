@@ -15,7 +15,7 @@ An account on the cluster has already been made for you. You will just need to b
 Step 1: Logging In
 ^^^^^^^^^^^^^^^^^^
 
-You will receive an email from Vector with your credentials for logging into the cluster. The cluster is accessed using ssh so you can directly use the Linux/MacOS terminal or Powershell for Windows. If you want to have a more accessible environment, using an IDE like VS code is recommended. A quick guide for setting up VS code can be found _`here <https://catgloss.github.io/robotics_workshops/vs_code_setup.html>`_ 
+You will receive an email from Vector with your credentials for logging into the cluster. The cluster is accessed using ssh so you can directly use the Linux/MacOS terminal or Powershell for Windows. If you want to have a more accessible environment, using an IDE like VS code is recommended. A quick guide for setting up VS code can be found `here <https://catgloss.github.io/robotics_workshops/general_setup.html#optional-vs-code>`_ 
 
 
 
@@ -181,3 +181,8 @@ loads or if there are network issues between the microservices.
 the metrics through a graphical dashboard interface.
 
 You can learn more about RabbitMQ monitoring with Prometheus & Grafana `here <https://www.rabbitmq.com/prometheus.html#rabbitmq-overview-dashboard>`__.
+
+(Optional) VS Code Setup 
+-------------------------
+
+Here is how to setup VS Code for working remotely on the cluster 
