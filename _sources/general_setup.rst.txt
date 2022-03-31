@@ -61,7 +61,7 @@ and your current directory will be spit out
 Working on the Cluster 
 ----------------------
 
-For the purposes of these workshops, we have simplified the computing guide provided through <`Vector <https://catgloss.github.io/robotics_workshops/general_setup.html#optional-vs-code-setup>`_ (which you will have access to once your account is setup). 
+For the purposes of these workshops, we have simplified the computing guide provided through `Vector <https://support.vectorinstitute.ai/Computing>`_ (which you will have access to once your account is setup). 
 
 The basic method for running a job is as follows: 
 
