@@ -42,24 +42,13 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Working on the Vector Cluster (General Guide)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#getting-access">Getting Access</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#step-1-logging-in">Step 1: Logging In</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#python-virtual-environment">Python virtual environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-2-setting-up-mfa">Step 2: Setting up MFA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-3-changing-your-password">Step 3: Changing your password</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-4-finishing-setup">Step 4: Finishing Setup</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#deployment">Deployment</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#flask-app">Flask app</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#client-example">Client example</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#streamlit-app">Streamlit app</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#system-diagram">System Diagram</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#components">Components</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#storage-database-for-audio-and-results-mongodb">Storage database for audio and results (MongoDB)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#message-broker-rabbitmq">Message Broker (RabbitMQ)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#backend-server-flask">Backend Server (Flask)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#frontend-application-for-live-transcription-streamlit">Frontend application for live transcription (Streamlit)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#monitoring-prometheus-and-grafana">Monitoring (Prometheus and Grafana)</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#working-on-the-cluster">Working on the Cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#optional-vector-vpn">(Optional) Vector VPN</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#optional-vs-code-setup">(Optional) VS Code Setup</a></li>
 </ul>
 </li>
@@ -99,132 +88,42 @@
 <p>An account on the cluster has already been made for you. You will just need to be able to login to get started.</p>
 <section id="step-1-logging-in">
 <h3>Step 1: Logging In<a class="headerlink" href="#step-1-logging-in" title="Permalink to this headline"></a></h3>
-<p>You will receive an email from Vector with your credentials for logging into the cluster. The cluster is accessed using ssh so you can directly use the Linux/MacOS terminal or Powershell for Windows. If you want to have a more accessible environment, using an IDE like VS code is recommended. A quick guide for setting up VS code can be found <a class="reference external" href="https://catgloss.github.io/robotics_workshops/general_setup.html#optional-vs-code">here</a></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt install ffmpeg
+<p>You will receive an email from Vector with your credentials for logging into the cluster. The cluster is accessed using ssh so you can directly use the Linux/MacOS terminal or Powershell for Windows. If you want to have a more accessible environment, using an IDE like VS code is recommended. A quick guide for setting up VS code can be found <a class="reference external" href="https://catgloss.github.io/robotics_workshops/general_setup.html#optional-vs-code-setup">here</a></p>
+<p>Which ever method use choose from the above to login, the process is the same. First, ssh in.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh &lt;your username&gt;@x.vectorinstitute.ai
 </pre></div>
 </div>
-<p>or</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>brew install ffmpeg
+<p>You will be prompted for your password. Enter your password (provided in the email).</p>
+</section>
+<section id="step-2-setting-up-mfa">
+<h3>Step 2: Setting up MFA<a class="headerlink" href="#step-2-setting-up-mfa" title="Permalink to this headline"></a></h3>
+<p>After entering your password (correctly), you will be provided a link to enroll in DUO multi-factor authentication.</p>
+<p>Install the DUO app on your iOS or Android device and scan the QR code given through the link to complete sign up.</p>
+<p>When you login again, you can choose to get an SMS notif or directly get a passcode through the DUO app. You can also optionally setup the <a class="reference external" href="https://catgloss.github.io/robotics_workshops/general_setup.html#optional-vs-code-setup">Vector VPN</a>.</p>
+</section>
+<section id="step-3-changing-your-password">
+<h3>Step 3: Changing your password<a class="headerlink" href="#step-3-changing-your-password" title="Permalink to this headline"></a></h3>
+<p>Once you’ve successfully accessed the cluster after setting up DUO, you will need to change your password.</p>
+<p>Enter the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>passwd
 </pre></div>
 </div>
-<p>To setup the environment and install dependencies:</p>
+<p>Change your password to something secure.</p>
 </section>
-<section id="python-virtual-environment">
-<h3>Python virtual environment<a class="headerlink" href="#python-virtual-environment" title="Permalink to this headline"></a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 -m venv &lt;path/to/venv&gt;
-<span class="nb">source</span> &lt;path/to/venv&gt;/bin/activate
-pip install --upgrade pip
-pip install -r reference_implementation/asr/requirements.txt
+<section id="step-4-finishing-setup">
+<h3>Step 4: Finishing Setup<a class="headerlink" href="#step-4-finishing-setup" title="Permalink to this headline"></a></h3>
+<p>You are automatically in your profile’s home directory. If you ever need to check which directory you are in, you can run the following command</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">pwd</span>
 </pre></div>
 </div>
+<p>and your current directory will be spit out</p>
 </section>
 </section>
-<section id="deployment">
-<h2>Deployment<a class="headerlink" href="#deployment" title="Permalink to this headline"></a></h2>
-<p>To deploy using docker, make sure your machine has <a class="reference external" href="https://docs.docker.com/engine/install/">Docker</a>
-and <a class="reference external" href="https://docs.docker.com/compose/install/">Docker compose</a> installed.</p>
-<p>In order to run all the microservices using <cite>docker-compose</cite>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose up --build
-</pre></div>
-</div>
-<p>In order to shut down the service and clean up the build cache:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose down
-docker system prune
-</pre></div>
-</div>
-<section id="flask-app">
-<h3>Flask app<a class="headerlink" href="#flask-app" title="Permalink to this headline"></a></h3>
-<p>To run the flask app, run the following command from <cite>reference_implementation/asr</cite>
-directory:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>flask run
-</pre></div>
-</div>
+<section id="working-on-the-cluster">
+<h2>Working on the Cluster<a class="headerlink" href="#working-on-the-cluster" title="Permalink to this headline"></a></h2>
 </section>
-<section id="client-example">
-<h3>Client example<a class="headerlink" href="#client-example" title="Permalink to this headline"></a></h3>
-<p>An example to showcase using the ASR service through a python program as a client,
-run:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 reference_implementation/client_example.py
-</pre></div>
-</div>
-</section>
-<section id="streamlit-app">
-<h3>Streamlit app<a class="headerlink" href="#streamlit-app" title="Permalink to this headline"></a></h3>
-<p>An example app using streamlit to serve as a frontend for live transcription, over
-the browser. Run the following command from <cite>reference_implementation/asr</cite>
-directory:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>streamlit run streamlit_app.py
-</pre></div>
-</div>
-</section>
-</section>
-<section id="system-diagram">
-<h2>System Diagram<a class="headerlink" href="#system-diagram" title="Permalink to this headline"></a></h2>
-<p float="left">
-  <img src="_static/system_diagram.png" />
-</p></section>
-<section id="components">
-<h2>Components<a class="headerlink" href="#components" title="Permalink to this headline"></a></h2>
-<section id="storage-database-for-audio-and-results-mongodb">
-<h3>Storage database for audio and results (MongoDB)<a class="headerlink" href="#storage-database-for-audio-and-results-mongodb" title="Permalink to this headline"></a></h3>
-<p><a class="reference external" href="https://docs.mongodb.com/manual/">MongoDB</a> is used as a document storage database,
-which can be used as a filesystem to store input audio files as well as
-transcribed results in JSON format. We launch the database as a service using
-a docker container. Our flask backend can communicate with the database to
-send and receive files along with results.</p>
-</section>
-<section id="message-broker-rabbitmq">
-<h3>Message Broker (RabbitMQ)<a class="headerlink" href="#message-broker-rabbitmq" title="Permalink to this headline"></a></h3>
-<p><a class="reference external" href="https://www.rabbitmq.com/">RabbitMQ</a> is a message broker that supports the creation of a queue for transcription.
-Any incoming audio file can be placed in the queue, and the message broker, will
-then create tasks to send the files to the respective models. The message broker
-(also popularly known as PubSub) prevents request timeouts and allows the ASR service
-to handle multiple requests asynchronously.</p>
-</section>
-<section id="backend-server-flask">
-<h3>Backend Server (Flask)<a class="headerlink" href="#backend-server-flask" title="Permalink to this headline"></a></h3>
-<p>Flask in python is used to create HTTP endpoints where transcription requests
-can be sent. There are three main endpoints:</p>
-<ul class="simple">
-<li><p><cite>queue_task</cite> - An audio file to be placed in a queue for transcription can be
-sent to this endpoint as a request. This endpoint can handle multiple requests
-asynchronously, and is managed by the message broker. If the service is busy,
-the transcription is placed in the queue as a task, which gets assigned when the
-model server is available.</p></li>
-<li><p><cite>instant_transcribe</cite> - An audio file to be placed in a queue for instant
-transcription. This endpoint attempts to transcribe an input audio file
-immediately after the request is received, and is not managed by the message broker
-queue. Hence, if the transcriber service takes too long, for example if the worker
-processes are busy transcribing a previous request or if the audio file is too large,
-then the current request would time out, and the task is marked complete
-yielding no results.</p></li>
-<li><p><cite>get_results</cite> - An endpoint to send requests to fetch previously transcribed results
-from the database. In this case, the user would need to input the unique document
-ID corresponding to the audio file that was previously sent for transcription.</p></li>
-</ul>
-</section>
-<section id="frontend-application-for-live-transcription-streamlit">
-<h3>Frontend application for live transcription (Streamlit)<a class="headerlink" href="#frontend-application-for-live-transcription-streamlit" title="Permalink to this headline"></a></h3>
-<p><a class="reference external" href="https://streamlit.io/">Streamlit</a> is a framework for building web apps using
-very simple python code. As an example, we use streamlit to showcase a simple
-application, which allows the user to speak into the microphone
-through the browser (frontend), the audio stream is then transcribed by the application, and
-the results are sent back to the frontend with minimal delay. This is a use-case of
-live transcription where the input audio is not stored, and there are no queues to manage
-requests. The streamlit app also has an option to upload an audio file, which the app
-then acts as a client, and sends it to the <cite>queue_task</cite> endpoint of the flask server.</p>
-</section>
-<section id="monitoring-prometheus-and-grafana">
-<h3>Monitoring (Prometheus and Grafana)<a class="headerlink" href="#monitoring-prometheus-and-grafana" title="Permalink to this headline"></a></h3>
-<p>We use <a class="reference external" href="https://prometheus.io/">Prometheus</a> to showcase monitoring of the services, and
-collecting metrics. Monitoring becomes crucial when developing services that are meant
-to handle several concurrent requests, and when latency and load become bottlenecks.</p>
-<p>Prometheus can be used to setup alerts when the service is down or is facing unusual
-loads or if there are network issues between the microservices.</p>
-<p><a class="reference external" href="https://grafana.com/oss/grafana/">Grafana</a> is integrated with Prometheus to visualise
-the metrics through a graphical dashboard interface.</p>
-<p>You can learn more about RabbitMQ monitoring with Prometheus &amp; Grafana <a class="reference external" href="https://www.rabbitmq.com/prometheus.html#rabbitmq-overview-dashboard">here</a>.</p>
-</section>
+<section id="optional-vector-vpn">
+<h2>(Optional) Vector VPN<a class="headerlink" href="#optional-vector-vpn" title="Permalink to this headline"></a></h2>
 </section>
 <section id="optional-vs-code-setup">
 <h2>(Optional) VS Code Setup<a class="headerlink" href="#optional-vs-code-setup" title="Permalink to this headline"></a></h2>
