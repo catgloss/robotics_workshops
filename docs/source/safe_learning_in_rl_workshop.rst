@@ -1,4 +1,4 @@
-Unsupervised ASR Tutorial
+Safe Learning in RL Workshop Cluster Guide
 =================================
 `Wav2Veq-U <https://github.com/pytorch/fairseq/tree/main/examples/wav2vec/unsupervised>`__
 is a model provided inside the the `Fairseq <https://github.com/pytorch/fairseq>`__ toolkit
