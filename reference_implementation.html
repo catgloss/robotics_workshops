@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ASR Reference Implementation &mdash; ASR (Automatic Speech Recognition)  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Unsupervised ASR Tutorial" href="unsupervised_asr.html" />
+    <link rel="prev" title="Automatic Speech Recognition (ASR)" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> ASR (Automatic Speech Recognition)
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ASR Reference Implementation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#development-environment">Development Environment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#python-virtual-environment">Python virtual environment</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#deployment">Deployment</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#flask-app">Flask app</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#client-example">Client example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#streamlit-app">Streamlit app</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#system-diagram">System Diagram</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#components">Components</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#storage-database-for-audio-and-results-mongodb">Storage database for audio and results (MongoDB)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#message-broker-rabbitmq">Message Broker (RabbitMQ)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#backend-server-flask">Backend Server (Flask)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#frontend-application-for-live-transcription-streamlit">Frontend application for live transcription (Streamlit)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#monitoring-prometheus-and-grafana">Monitoring (Prometheus and Grafana)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="unsupervised_asr.html">Unsupervised ASR Tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="datasets.html">Datasets</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">ASR (Automatic Speech Recognition)</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>ASR Reference Implementation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/reference_implementation.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="asr-reference-implementation">
+<h1>ASR Reference Implementation<a class="headerlink" href="#asr-reference-implementation" title="Permalink to this headline"></a></h1>
+<p>This reference implementation provides an easy to deploy implementation of an
+Automatic Speech Recognition (ASR) service using docker.</p>
+<section id="development-environment">
+<h2>Development Environment<a class="headerlink" href="#development-environment" title="Permalink to this headline"></a></h2>
+<p>The development environment has been tested using <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">=</span> <span class="pre">3.8.10</span></code> on <code class="docutils literal notranslate"><span class="pre">Ubuntu</span> <span class="pre">20.04</span></code> and
+<code class="docutils literal notranslate"><span class="pre">Mac</span> <span class="pre">OSX</span> <span class="pre">11.5.2</span></code>.</p>
+<section id="prerequisites">
+<h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline"></a></h3>
+<p>A prerequisite is the <a class="reference external" href="https://ffmpeg.org/download.html">ffmpeg</a> library.
+Hence, make sure it is installed, i.e.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>apt install ffmpeg
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>brew install ffmpeg
+</pre></div>
+</div>
+<p>To setup the environment and install dependencies:</p>
+</section>
+<section id="python-virtual-environment">
+<h3>Python virtual environment<a class="headerlink" href="#python-virtual-environment" title="Permalink to this headline"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 -m venv &lt;path/to/venv&gt;
+<span class="nb">source</span> &lt;path/to/venv&gt;/bin/activate
+pip install --upgrade pip
+pip install -r reference_implementation/asr/requirements.txt
+</pre></div>
+</div>
+</section>
+</section>
+<section id="deployment">
+<h2>Deployment<a class="headerlink" href="#deployment" title="Permalink to this headline"></a></h2>
+<p>To deploy using docker, make sure your machine has <a class="reference external" href="https://docs.docker.com/engine/install/">Docker</a>
+and <a class="reference external" href="https://docs.docker.com/compose/install/">Docker compose</a> installed.</p>
+<p>In order to run all the microservices using <cite>docker-compose</cite>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose up --build
+</pre></div>
+</div>
+<p>In order to shut down the service and clean up the build cache:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose down
+docker system prune
+</pre></div>
+</div>
+<section id="flask-app">
+<h3>Flask app<a class="headerlink" href="#flask-app" title="Permalink to this headline"></a></h3>
+<p>To run the flask app, run the following command from <cite>reference_implementation/asr</cite>
+directory:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>flask run
+</pre></div>
+</div>
+</section>
+<section id="client-example">
+<h3>Client example<a class="headerlink" href="#client-example" title="Permalink to this headline"></a></h3>
+<p>An example to showcase using the ASR service through a python program as a client,
+run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 reference_implementation/client_example.py
+</pre></div>
+</div>
+</section>
+<section id="streamlit-app">
+<h3>Streamlit app<a class="headerlink" href="#streamlit-app" title="Permalink to this headline"></a></h3>
+<p>An example app using streamlit to serve as a frontend for live transcription, over
+the browser. Run the following command from <cite>reference_implementation/asr</cite>
+directory:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>streamlit run streamlit_app.py
+</pre></div>
+</div>
+</section>
+</section>
+<section id="system-diagram">
+<h2>System Diagram<a class="headerlink" href="#system-diagram" title="Permalink to this headline"></a></h2>
+<p float="left">
+  <img src="_static/system_diagram.png" />
+</p></section>
+<section id="components">
+<h2>Components<a class="headerlink" href="#components" title="Permalink to this headline"></a></h2>
+<section id="storage-database-for-audio-and-results-mongodb">
+<h3>Storage database for audio and results (MongoDB)<a class="headerlink" href="#storage-database-for-audio-and-results-mongodb" title="Permalink to this headline"></a></h3>
+<p><a class="reference external" href="https://docs.mongodb.com/manual/">MongoDB</a> is used as a document storage database,
+which can be used as a filesystem to store input audio files as well as
+transcribed results in JSON format. We launch the database as a service using
+a docker container. Our flask backend can communicate with the database to
+send and receive files along with results.</p>
+</section>
+<section id="message-broker-rabbitmq">
+<h3>Message Broker (RabbitMQ)<a class="headerlink" href="#message-broker-rabbitmq" title="Permalink to this headline"></a></h3>
+<p><a class="reference external" href="https://www.rabbitmq.com/">RabbitMQ</a> is a message broker that supports the creation of a queue for transcription.
+Any incoming audio file can be placed in the queue, and the message broker, will
+then create tasks to send the files to the respective models. The message broker
+(also popularly known as PubSub) prevents request timeouts and allows the ASR service
+to handle multiple requests asynchronously.</p>
+</section>
+<section id="backend-server-flask">
+<h3>Backend Server (Flask)<a class="headerlink" href="#backend-server-flask" title="Permalink to this headline"></a></h3>
+<p>Flask in python is used to create HTTP endpoints where transcription requests
+can be sent. There are three main endpoints:</p>
+<ul class="simple">
+<li><p><cite>queue_task</cite> - An audio file to be placed in a queue for transcription can be
+sent to this endpoint as a request. This endpoint can handle multiple requests
+asynchronously, and is managed by the message broker. If the service is busy,
+the transcription is placed in the queue as a task, which gets assigned when the
+model server is available.</p></li>
+<li><p><cite>instant_transcribe</cite> - An audio file to be placed in a queue for instant
+transcription. This endpoint attempts to transcribe an input audio file
+immediately after the request is received, and is not managed by the message broker
+queue. Hence, if the transcriber service takes too long, for example if the worker
+processes are busy transcribing a previous request or if the audio file is too large,
+then the current request would time out, and the task is marked complete
+yielding no results.</p></li>
+<li><p><cite>get_results</cite> - An endpoint to send requests to fetch previously transcribed results
+from the database. In this case, the user would need to input the unique document
+ID corresponding to the audio file that was previously sent for transcription.</p></li>
+</ul>
+</section>
+<section id="frontend-application-for-live-transcription-streamlit">
+<h3>Frontend application for live transcription (Streamlit)<a class="headerlink" href="#frontend-application-for-live-transcription-streamlit" title="Permalink to this headline"></a></h3>
+<p><a class="reference external" href="https://streamlit.io/">Streamlit</a> is a framework for building web apps using
+very simple python code. As an example, we use streamlit to showcase a simple
+application, which allows the user to speak into the microphone
+through the browser (frontend), the audio stream is then transcribed by the application, and
+the results are sent back to the frontend with minimal delay. This is a use-case of
+live transcription where the input audio is not stored, and there are no queues to manage
+requests. The streamlit app also has an option to upload an audio file, which the app
+then acts as a client, and sends it to the <cite>queue_task</cite> endpoint of the flask server.</p>
+</section>
+<section id="monitoring-prometheus-and-grafana">
+<h3>Monitoring (Prometheus and Grafana)<a class="headerlink" href="#monitoring-prometheus-and-grafana" title="Permalink to this headline"></a></h3>
+<p>We use <a class="reference external" href="https://prometheus.io/">Prometheus</a> to showcase monitoring of the services, and
+collecting metrics. Monitoring becomes crucial when developing services that are meant
+to handle several concurrent requests, and when latency and load become bottlenecks.</p>
+<p>Prometheus can be used to setup alerts when the service is down or is facing unusual
+loads or if there are network issues between the microservices.</p>
+<p><a class="reference external" href="https://grafana.com/oss/grafana/">Grafana</a> is integrated with Prometheus to visualise
+the metrics through a graphical dashboard interface.</p>
+<p>You can learn more about RabbitMQ monitoring with Prometheus &amp; Grafana <a class="reference external" href="https://www.rabbitmq.com/prometheus.html#rabbitmq-overview-dashboard">here</a>.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Automatic Speech Recognition (ASR)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="unsupervised_asr.html" class="btn btn-neutral float-right" title="Unsupervised ASR Tutorial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Vector AI Engineering.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
