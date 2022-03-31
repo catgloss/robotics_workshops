@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Unsupervised ASR Tutorial &mdash; Robotics Workshops Cluster Guide  documentation</title>
+  <title>Safe Learning in RL Workshop Cluster Guide &mdash; Robotics Workshops Cluster Guide  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -17,7 +17,8 @@
         <script src="_static/doctools.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Working on the Vector Cluster (General Guide)" href="general_setup.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -36,8 +37,25 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="general_setup.html">Working on the Vector Cluster (General Guide)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Safe Learning in RL Workshop Cluster Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#environment-setup">1. Environment Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#running-scripts-on-your-system">1.1 Running Scripts on Your System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-scripts-on-vector-cluster">1.2 Running Scripts On Vector Cluster</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#training-guide">2. Training Guide</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#audio-preprocessing-librispeech">2.1 Audio preprocessing (LibriSpeech)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#text-preprocessing-librispeech">2.2 Text preprocessing (LibriSpeech)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#gan-training">2.3 GAN Training</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#inference-guide">3. Inference Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#iterative-self-training-kaldi-lm-decoding">4. Iterative self-training + Kaldi LM-decoding</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#applied-changes">5. Applied Changes</a></li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -54,9 +72,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Unsupervised ASR Tutorial</li>
+      <li>Safe Learning in RL Workshop Cluster Guide</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/unsupervised_asr.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/safe_learning_in_rl_workshop.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -64,8 +82,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="unsupervised-asr-tutorial">
-<h1>Unsupervised ASR Tutorial<a class="headerlink" href="#unsupervised-asr-tutorial" title="Permalink to this headline"></a></h1>
+  <section id="safe-learning-in-rl-workshop-cluster-guide">
+<h1>Safe Learning in RL Workshop Cluster Guide<a class="headerlink" href="#safe-learning-in-rl-workshop-cluster-guide" title="Permalink to this headline"></a></h1>
 <p><a class="reference external" href="https://github.com/pytorch/fairseq/tree/main/examples/wav2vec/unsupervised">Wav2Veq-U</a>
 is a model provided inside the the <a class="reference external" href="https://github.com/pytorch/fairseq">Fairseq</a> toolkit
 that makes speech recognition possible by using unpaired audio and text
@@ -439,7 +457,9 @@ output_dict: path_to/kaldi_dict.kenlm.wrd.o40003.txt or path_to/kaldi_dict.lm.ph
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="general_setup.html" class="btn btn-neutral float-left" title="Working on the Vector Cluster (General Guide)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
 
   <hr/>
 
