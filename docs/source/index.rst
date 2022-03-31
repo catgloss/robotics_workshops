@@ -11,5 +11,5 @@ This repo provides documentation for:
    :caption: Contents:
 
    general_setup
-   unsupervised_asr
-   datasets
+   autonmous_navigation_workshop
+   safe_learning_in_rl_workshop
