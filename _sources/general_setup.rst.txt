@@ -12,10 +12,12 @@ Getting Access
 
 An account on the cluster has already been made for you. You will just need to be able to login to get started. 
 
-VPN 
-^^^
+Step 1: Logging In
+^^^^^^^^^^^^^^^^^^
 
-The cluster has two levels of security. The first is the Vector VPN.
+You will receive an email from Vector with your credentials for logging into the cluster. The cluster is accessed using ssh so you can directly use the Linux/MacOS terminal or Powershell for Windows. If you want to have a more accessible environment, using an IDE like VS code is recommended. A quick guide for setting up VS code can be found _`here <https://catgloss.github.io/robotics_workshops/vs_code_setup.html>`_ 
+
+
 
 .. code-block:: bash
 
