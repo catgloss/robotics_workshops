@@ -10,6 +10,6 @@ This repo provides documentation for:
    :maxdepth: 2
    :caption: Contents:
 
-   reference_implementation
+   general_setup
    unsupervised_asr
    datasets
