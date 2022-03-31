@@ -23,7 +23,7 @@ sys.path.insert(0, os.path.abspath("../../reference_implementation/asr/transcrib
 
 # -- Project information -----------------------------------------------------
 
-project = "ASR (Automatic Speech Recognition)"
+project = "Robotics Workshops Cluster Guide"
 copyright = "2022, Vector AI Engineering"
 author = "Vector AI Engineering"
 
