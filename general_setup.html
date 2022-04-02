@@ -47,9 +47,21 @@
 <li class="toctree-l3"><a class="reference internal" href="#step-4-finishing-setup">Step 4: Finishing Setup</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#working-on-the-cluster">Working on the Cluster</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#working-on-the-cluster">Working on the Cluster</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#running-a-job">Running a Job</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pre-emption-checkpointing">Pre-emption &amp; Checkpointing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setting-up-your-environment">Setting up your environment</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#optional-vector-vpn">(Optional) Vector VPN</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#optional-vs-code-setup">(Optional) VS Code Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#optional-vs-code-setup">(Optional) VS Code Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#step-1">Step 1:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-2">Step 2:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-3">Step 3:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-4">Step 4:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tips">Tips:</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="autonmous_navigation_workshop.html">Autonmous Navigation Workshop Cluster Guide</a></li>
@@ -90,10 +102,10 @@
 <h3>Step 1: Logging In<a class="headerlink" href="#step-1-logging-in" title="Permalink to this headline"></a></h3>
 <p>You will receive an email from Vector with your credentials for logging into the cluster. The cluster is accessed using ssh so you can directly use the Linux/MacOS terminal or Powershell for Windows. If you want to have a more accessible environment, using an IDE like VS code is recommended. A quick guide for setting up VS code can be found <a class="reference external" href="https://catgloss.github.io/robotics_workshops/general_setup.html#optional-vs-code-setup">here</a></p>
 <p>Which ever method use choose from the above to login, the process is the same. First, ssh in.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh &lt;your username&gt;@x.vectorinstitute.ai
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh &lt;your username&gt;@&lt;x&gt;.vectorinstitute.ai
 </pre></div>
 </div>
-<p>You will be prompted for your password. Enter your password (provided in the email).</p>
+<p>The x here refers to the different cluster domains available among q, v, and m. For these workshops, you can use &lt;x&gt;. toYou will be prompted for your password. Enter your password (provided in the email).</p>
 </section>
 <section id="step-2-setting-up-mfa">
 <h3>Step 2: Setting up MFA<a class="headerlink" href="#step-2-setting-up-mfa" title="Permalink to this headline"></a></h3>
@@ -117,20 +129,129 @@
 </pre></div>
 </div>
 <p>and your current directory will be spit out</p>
+<p>To test if everything is setup correctly, you can run the following script:</p>
+<ul class="simple">
+<li><p>TODO *</p></li>
+</ul>
 </section>
 </section>
 <section id="working-on-the-cluster">
 <h2>Working on the Cluster<a class="headerlink" href="#working-on-the-cluster" title="Permalink to this headline"></a></h2>
+<section id="running-a-job">
+<h3>Running a Job<a class="headerlink" href="#running-a-job" title="Permalink to this headline"></a></h3>
 <p>For the purposes of these workshops, we have simplified the computing guide provided through <a class="reference external" href="https://support.vectorinstitute.ai/Computing">Vector</a> (which you will have access to once your account is setup).</p>
-<p>The basic method for running a job is as follows:</p>
+<ul class="simple">
+<li><p>In order to run jobs on the Vector cluster, you need to submit a job on SLURM scheduler. To do so, you need to create a shell script (e.g. <code class="docutils literal notranslate"><span class="pre">job.sh</span></code>) and submit the job. This is how the job will be submitted.</p></li>
+</ul>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sbatch job.sh
+</pre></div>
+</div>
+</div></blockquote>
+<p>The <code class="docutils literal notranslate"><span class="pre">job.sh</span></code> file defines the parameters for your job. The defaults defined below should be good.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="c1">#SBATCH --job-name=any_name_here</span>
+
+<span class="c1">#SBATCH --partition=p100,t4v1,t4v2,rtx6000</span>
+
+<span class="c1">#SBATCH --gres=gpu:1</span>
+
+<span class="c1">#SBATCH --qos=normal</span>
+
+<span class="c1">#SBATCH --cpus-per-task=4</span>
+
+<span class="c1">#SBATCH --mem-per-cpu=8G</span>
+
+<span class="c1">#SBATCH --output=slurm-%j.out</span>
+
+<span class="c1">#SBATCH --error=slurm-%j.err</span>
+
+<span class="c1"># prepare your environment here</span>
+module load pytorch1.7.1-cuda11.0-python3.6
+
+<span class="c1"># put your command here</span>
+python train.py
+</pre></div>
+</div>
+<p>sbatch will execute your job in the background. If you are looking to run an interactive job to debug, instead run</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>srun -c <span class="m">4</span> --gres<span class="o">=</span>gpu:1 --mem<span class="o">=</span>32GB --qos<span class="o">=</span>nopreemption -p interactive --pty bash
+</pre></div>
+</div>
+<p>This will tell SLURM you want 4 CPUs(-c 4), 1 GPU(–gres=gpu:1), 32GB of CPU ram(–mem) on nopreemption QOS and on the interactive partition(-p) and then launch bash(–pty bash). Note that there is a limit of 3 hours before SLURM will cancel your interactive job.</p>
+<p>To check the status of your job in the queue:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>squeue -u <span class="s2">&quot;</span><span class="nv">$USER</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>Finally, to cancel a job</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>scancel JOBID
+</pre></div>
+</div>
+</section>
+<section id="pre-emption-checkpointing">
+<h3>Pre-emption &amp; Checkpointing<a class="headerlink" href="#pre-emption-checkpointing" title="Permalink to this headline"></a></h3>
+<p>To ensure fair allocation of the cluster resources, every hour, your job is evaluated for pre-emption, meaning that it may be stopped. To ensure you don’t lose your progress, it is important to write checkpoints for your models. <code class="docutils literal notranslate"><span class="pre">/checkpoint/YOURUSERID</span></code> should be the location you write these checkpoints to as it runs on a different kind of file system called MooseFS, which is great for storing a small amount of large files, like model checkpoints.</p>
+<p>When you actually run a job, a folder to store that jobs checkpoints will be created called /checkpoint/YOURUSERID/YOURJOBID. This can be used in your code to load in a previous checkpoint when the job continues.</p>
+<p>For more information on checkpointing on the cluster, use <a class="reference external" href="https://support.vectorinstitute.ai/CheckpointExample">Vector’s Checkpoint Example</a></p>
+</section>
+<section id="setting-up-your-environment">
+<h3>Setting up your environment<a class="headerlink" href="#setting-up-your-environment" title="Permalink to this headline"></a></h3>
+<p>To view existing environments on the cluster, run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>module av
+</pre></div>
+</div>
+<p>To load an existing environment, run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>module load ENV_YOU_WANT_TO_LOAD
+</pre></div>
+</div>
+<p>If an environment doesn’t exist, create your own with venv:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 -m venv some_env
+</pre></div>
+</div>
+<p>and activate the environment with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span> &lt;some_env&gt;/bin/activate
+</pre></div>
+</div>
+<p>To deactivate, just execute <cite>deactivate</cite> in the command line.</p>
+</section>
 </section>
 <section id="optional-vector-vpn">
 <h2>(Optional) Vector VPN<a class="headerlink" href="#optional-vector-vpn" title="Permalink to this headline"></a></h2>
-<p>This is how to setup the Vector VPN</p>
+<p>The Vector VPN can be used to create an extra layer of security. Specifically, it can be used if you want to work on Jupyter Notebooks but have it be run on the cluster.</p>
 </section>
 <section id="optional-vs-code-setup">
 <h2>(Optional) VS Code Setup<a class="headerlink" href="#optional-vs-code-setup" title="Permalink to this headline"></a></h2>
-<p>Here is how to setup VS Code for working remotely on the cluster</p>
+<p><a class="reference external" href="https://code.visualstudio.com/">Visual Studio (VS) Code</a> is a great IDE that makes working on remote connections easy. It also provides other tools like <a class="reference external" href="https://code.visualstudio.com/docs/editor/intellisense#:~:text=IntelliSense%20is%20a%20general%20term,%2C%20and%20%22code%20hinting.%22">Intellisense</a> that makes development easy.</p>
+<p>If you don’t already use it, it will make working on files on the cluster easier while you are debugging. Here is how it can be set up for use on the cluster:</p>
+<section id="step-1">
+<h3>Step 1:<a class="headerlink" href="#step-1" title="Permalink to this headline"></a></h3>
+<p>Download the IDE from this <a class="reference external" href="https://code.visualstudio.com/Download">link</a> for which ever operating system you are using.</p>
+</section>
+<section id="step-2">
+<h3>Step 2:<a class="headerlink" href="#step-2" title="Permalink to this headline"></a></h3>
+<p>Open up VS code and install the Remote Development extension pack. To do this, click the extensions icon (group of 4 blocks) on the left hand side of the screen and search ‘remote’. The package ‘Remote - SSH’ should pop up. Install it.</p>
+</section>
+<section id="step-3">
+<h3>Step 3:<a class="headerlink" href="#step-3" title="Permalink to this headline"></a></h3>
+<p>VS code can be used to save ssh configurations to make connecting easier. To get started with a connection, either press ctrl+p or click the gear at the bottom left hand side. This will open up the command palette where you can type ‘remote’ and select the option to add a new ssh host. The other option is to directly click the little arrow icon at the bottom left hand side which will ask you to select if you want to connect to a host or add a new host (the last option). Click latter option.</p>
+</section>
+<section id="step-4">
+<h3>Step 4:<a class="headerlink" href="#step-4" title="Permalink to this headline"></a></h3>
+<p>In all cases, you will now be able to type in command for the host you want to connect to. In our case, it is the same as was shown above.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ssh &lt;your username&gt;@&lt;x&gt;.vectorinstitute.ai
+</pre></div>
+</div>
+<p>You can use the same process that was followed above to log in. Open the terminal by clicking Terminal-&gt;New Terminal at the top of your screen. Now you can open any files on the cluster by typing code &lt;your file&gt; in the command line and editing like you would any other IDE.</p>
+</section>
+<section id="tips">
+<h3>Tips:<a class="headerlink" href="#tips" title="Permalink to this headline"></a></h3>
+<ol class="arabic simple">
+<li><p>It’s nice to be able to see the layout of your workspace all at once. You can open up a directory in your workspace by going to File-&gt;Open Folder and you will be able to see all your files laid out in explorer tab. As you go through files in the IDE, it will bring you to that location in your workspace.</p></li>
+<li><p>You can easily find files in your workspace and open them up by pressing ctrl+p and typing in the approximate name of your file. You can select it from the list and easily open it up.</p></li>
+<li><p>You can install <a class="reference external" href="https://code.visualstudio.com/docs/editor/intellisense#:~:text=IntelliSense%20is%20a%20general%20term,%2C%20and%20%22code%20hinting.%22">Intellisense</a> for whatever language you are working in that will make it easy to navigate and understand code. To install, click the extensions icon on the left hand on the left hand side, search ‘intellisense’ and your language of choice and click install. You may need to restart your session for intellisense to become active.</p></li>
+<li><p>Take a look through the other extensions for anything that might be useful to you! There is lots of different ones that can be very helpful depending on what you are working on.</p></li>
+</ol>
+</section>
 </section>
 </section>
 
