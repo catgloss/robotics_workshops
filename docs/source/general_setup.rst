@@ -187,8 +187,8 @@ Step 2:
 Open up VS code and install the Remote Development extension pack. To do this, click the extensions icon (group of 4 blocks) on the left hand side of the screen and search 'remote'. The package 'Remote - SSH' should pop up. Install it. 
 
 .. image:: _static/vscode_img.png
-   :height: 954px
-   :width: 620 px
+   :height: 620 px
+   :width: 954 px
    :scale: 50 %
    :alt: alternate text
    :align: right
