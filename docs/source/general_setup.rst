@@ -167,7 +167,7 @@ To deactivate, just execute `deactivate` in the command line.
 
 The Vector VPN can be used to create an extra layer of security. Specifically, it can be used if you want to work on Jupyter Notebooks but have it be run on the cluster. 
 
-
+* TODO *
 
 (Optional) VS Code Setup 
 -------------------------
@@ -185,6 +185,8 @@ Step 2:
 ^^^^^^^
 
 Open up VS code and install the Remote Development extension pack. To do this, click the extensions icon (group of 4 blocks) on the left hand side of the screen and search 'remote'. The package 'Remote - SSH' should pop up. Install it. 
+
+![](/assets/vscode_img.png "vscode_img")
 
 Step 3: 
 ^^^^^^^
