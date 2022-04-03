@@ -194,7 +194,7 @@ Open up VS code and install the Remote Development extension pack. To do this, c
 Step 3: 
 ^^^^^^^
 
-VS code can be used to save ssh configurations to make connecting easier. To get started with a connection, either press ctrl+p or click the gear at the bottom left hand side. This will open up the command palette where you can type 'remote' and select the option to add a new ssh host. The other option is to directly click the little arrow icon at the bottom left hand side which will ask you to select if you want to connect to a host or add a new host (the last option). Click latter option. 
+VS code can be used to save ssh configurations to make connecting easier. To get started with a connection, either press ctrl+p or click the gear at the bottom left hand side. This will open up the command palette where you can type 'remote' and select the option to add a new ssh host. The other option is to directly click the little arrow icon at the bottom left hand side which will ask you to select if you want to connect to a host or add a new host (the last option). Click the latter option. 
 
 Step 4: 
 ^^^^^^^
