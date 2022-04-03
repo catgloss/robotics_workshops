@@ -69,7 +69,7 @@ Your job.sh will look something like this
                        bash -c \
                        "<your command>"
 
-Submit the job as usual 
+Submit the job as usual: 
 
 .. code-block:: bash
 
