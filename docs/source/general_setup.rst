@@ -32,7 +32,7 @@ After entering your password (correctly), you will be provided a link to enroll 
 
 Install the DUO app on your iOS or Android device and scan the QR code given through the link to complete sign up. 
 
-When you login again, you can choose to get an SMS notif or directly get a passcode through the DUO app. You can also optionally setup the `Vector VPN <https://catgloss.github.io/robotics_workshops/general_setup.html#optional-vs-code-setup>`_.
+When you login again, you can choose to get an SMS notif or directly get a passcode through the DUO app. You can also optionally setup the `Vector VPN <https://catgloss.github.io/robotics_workshops/general_setup.html#optional-vector-vpn>`_.
 
 Step 3: Changing your password
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
