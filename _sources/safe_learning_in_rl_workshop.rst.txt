@@ -68,9 +68,11 @@ Your job.sh will look something like this
    singularity exec --nv -B /path/to/your/cwd:/root \
                        bash -c \
                        "<your command>"
+
 Submit the job as usual 
 
 .. code-block:: bash
+
    sbatch job.sh
 
 Refer to the tutorial and README in the safe-control-gym to learn more about configuring and running experiments. 
