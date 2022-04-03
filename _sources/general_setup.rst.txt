@@ -15,9 +15,9 @@ An account on the cluster has already been made for you. You will just need to b
 Step 1: Logging In
 ^^^^^^^^^^^^^^^^^^
 
-You will receive an email from Vector with your credentials for logging into the cluster. The cluster is accessed using ssh so you can directly use the Linux/MacOS terminal or Powershell for Windows. If you want to have a more accessible environment, using an IDE like VS code is recommended. A quick guide for setting up VS code can be found `here <https://catgloss.github.io/robotics_workshops/general_setup.html#optional-vs-code-setup>`_ 
+You will receive an email from Vector with your credentials for logging into the cluster. The cluster is accessed using ssh so you can directly use the Linux/MacOS terminal or Powershell for Windows. If you want to have a more accessible environment, using an IDE like VS code is recommended. A quick guide for setting up VS code can be found `here <https://catgloss.github.io/robotics_workshops/general_setup.html#optional-vs-code-setup>`_. 
 
-Which ever method use choose from the above to login, the process is the same. First, ssh in.
+Which ever method use choose from the above to login, the process is the same. First, ssh in:
 
 .. code-block:: bash
    
@@ -165,7 +165,7 @@ To deactivate, just execute `deactivate` in the command line.
 
 The Vector VPN can be used to create an extra layer of security. Specifically, it can be used if you want to work with Jupyter Notebooks but have it be run on the cluster.
 
-If you feel the need to use the VPN, please follow the steps available through the Vector Computing wiki (`vaughan <https://support.vectorinstitute.ai/Vaughan_SSL_VPN_and_JupyterHub>`_), (`MaRS <https://support.vectorinstitute.ai/MaRS_SSL_VPN>`_)
+If you feel the need to use the VPN, please follow the steps available through the Vector Computing wiki (`Vaughan <https://support.vectorinstitute.ai/Vaughan_SSL_VPN_and_JupyterHub>`_), (`MaRS <https://support.vectorinstitute.ai/MaRS_SSL_VPN>`_).
 
 (Optional) VS Code Setup 
 -------------------------
