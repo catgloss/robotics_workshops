@@ -5,6 +5,7 @@ For the SRL Workshop, we have provided a docker image that includes the safe-con
 On the cluster, we use `singularity <https://sylabs.io/guides/2.6/user-guide/index.html>`_ to manage and work with docker images. Refer to the link for additional documentation. To get started, we need to pull the image from docker hub. 
 
 .. code-block:: bash
+
    module load singularity-ce-3.8.2
    singularity pull docker://roboticsworkshops/srl-workshop:env_image
 
@@ -18,6 +19,7 @@ Interactive Session w/ Singularity
 If you want to just explore the safe-control-gym or want to debug some code, it is best to run an interactive job. To get started, schedule an interactive job with srun 
 
 .. code-block:: bash 
+
    srun -c 4 --gres=gpu:1 --mem=32GB --qos=nopreemption -p interactive --pty bash
 
 You should now see that you are running on the node for the job. 
