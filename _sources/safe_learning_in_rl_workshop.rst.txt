@@ -30,7 +30,7 @@ Now, you can run singularity exec on your image to start a session in the image.
 
 This will open up an interactive command line session with the image and you will be able to directly run any of code in the safe-control-gym through this image. Note that if you will have to use vim to interact with files while in this interactive session. 
 
-Non-interactive Session w/ Singularity 
+Noninteractive Session w/ Singularity 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 If you don't need to be able to look at source files and just want to run a job on the cluster, you can use either srun and execute the your commands with `singularity exec` or run a background job with sbatch and include your commands in the job script. 

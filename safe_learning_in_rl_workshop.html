@@ -42,7 +42,7 @@
 <li class="toctree-l1"><a class="reference internal" href="autonmous_navigation_workshop.html">Autonmous Navigation Workshop Cluster Guide</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Safe Learning in RL Workshop Cluster Guide</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#interactive-session-w-singularity">Interactive Session w/ Singularity</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#non-interactive-session-w-singularity">Non-interactive Session w/ Singularity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#noninteractive-session-w-singularity">Noninteractive Session w/ Singularity</a></li>
 </ul>
 </li>
 </ul>
@@ -87,8 +87,8 @@
 </div>
 <p>This will open up an interactive command line session with the image and you will be able to directly run any of code in the safe-control-gym through this image. Note that if you will have to use vim to interact with files while in this interactive session.</p>
 </section>
-<section id="non-interactive-session-w-singularity">
-<h2>Non-interactive Session w/ Singularity<a class="headerlink" href="#non-interactive-session-w-singularity" title="Permalink to this headline"></a></h2>
+<section id="noninteractive-session-w-singularity">
+<h2>Noninteractive Session w/ Singularity<a class="headerlink" href="#noninteractive-session-w-singularity" title="Permalink to this headline"></a></h2>
 <p>If you don’t need to be able to look at source files and just want to run a job on the cluster, you can use either srun and execute the your commands with <cite>singularity exec</cite> or run a background job with sbatch and include your commands in the job script.</p>
 <p>Option 1: srun and singularity exec</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>srun -c <span class="m">4</span> --gres<span class="o">=</span>gpu:1 --mem<span class="o">=</span>32GB --qos<span class="o">=</span>nopreemption -p interactive --pty bash
