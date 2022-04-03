@@ -40,7 +40,11 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="general_setup.html">Working on the Vector Cluster (General Guide)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="autonmous_navigation_workshop.html">Autonmous Navigation Workshop Cluster Guide</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Safe Learning in RL Workshop Cluster Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Safe Learning in RL Workshop Cluster Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#interactive-session-w-singularity">Interactive Session w/ Singularity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#non-interactive-session-w-singularity">Non-interactive Session w/ Singularity</a></li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -70,8 +74,51 @@
   <section id="safe-learning-in-rl-workshop-cluster-guide">
 <h1>Safe Learning in RL Workshop Cluster Guide<a class="headerlink" href="#safe-learning-in-rl-workshop-cluster-guide" title="Permalink to this headline"></a></h1>
 <p>For the SRL Workshop, we have provided a docker image that includes the safe-control-gym. This is to prevent the need for manually installing any dependencies as you don’t have root access on the cluster.</p>
-<p>To get started, we need to pull the image from docker hub.</p>
-<p>You should see the image being pulled down into the cluster. To check if everything was pulled correctly, you can execute the following command.</p>
+<p>On the cluster, we use <a class="reference external" href="https://sylabs.io/guides/2.6/user-guide/index.html">singularity</a> to manage and work with docker images. Refer to the link for additional documentation. To get started, we need to pull the image from docker hub.</p>
+<p>You should see the image being pulled down into the cluster. You should now see a .sif file in your current working directory call srl-workshop_env_image.sif.</p>
+<p>To use this image, you must use SLURM to run an interactive job or a job in the background.</p>
+<section id="interactive-session-w-singularity">
+<h2>Interactive Session w/ Singularity<a class="headerlink" href="#interactive-session-w-singularity" title="Permalink to this headline"></a></h2>
+<p>If you want to just explore the safe-control-gym or want to debug some code, it is best to run an interactive job. To get started, schedule an interactive job with srun</p>
+<p>You should now see that you are running on the node for the job.</p>
+<p>Now, you can run singularity exec on your image to start a session in the image.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>singularity shell --nv -B /path/to/your/cwd:/root srl-workshop_env_image bash
+</pre></div>
+</div>
+<p>This will open up an interactive command line session with the image and you will be able to directly run any of code in the safe-control-gym through this image. Note that if you will have to use vim to interact with files while in this interactive session.</p>
+</section>
+<section id="non-interactive-session-w-singularity">
+<h2>Non-interactive Session w/ Singularity<a class="headerlink" href="#non-interactive-session-w-singularity" title="Permalink to this headline"></a></h2>
+<p>If you don’t need to be able to look at source files and just want to run a job on the cluster, you can use either srun and execute the your commands with <cite>singularity exec</cite> or run a background job with sbatch and include your commands in the job script.</p>
+<p>Option 1: srun and singularity exec</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>srun -c <span class="m">4</span> --gres<span class="o">=</span>gpu:1 --mem<span class="o">=</span>32GB --qos<span class="o">=</span>nopreemption -p interactive --pty bash
+singularity <span class="nb">exec</span> --nv -B /path/to/your/cwd:/root srl-workshop_env_image bash -c <span class="s2">&quot;&lt;your command(s)&gt;&quot;</span>
+</pre></div>
+</div>
+<p>This will execute your commands in the image with starting a shell session.</p>
+<p>Option 2: sbatch and job script</p>
+<p>Your job.sh will look something like this</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<p>#!/bin/bash
+#SBATCH –ntasks=1
+#SBATCH –mem=24G
+#SBATCH -c 8
+#SBATCH –partition=t4v2
+#SBATCH –export=ALL
+#SBATCH –output=%x.%j.log
+#SBATCH –gres=gpu:1</p>
+<p>hostname
+nvidia-smi</p>
+<p>module load cuda-11.0
+module load singularity-ce-3.8.2</p>
+<dl class="simple">
+<dt>singularity exec –nv -B /path/to/your/cwd:/root </dt><dd><p>bash -c “&lt;your command&gt;”</p>
+</dd>
+</dl>
+<p>Refer to the tutorial and README in the safe-control-gym to learn more about configuring and running experiments.</p>
+</section>
 </section>
 
 
