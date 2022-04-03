@@ -75,11 +75,18 @@
 <h1>Safe Learning in RL Workshop Cluster Guide<a class="headerlink" href="#safe-learning-in-rl-workshop-cluster-guide" title="Permalink to this headline"></a></h1>
 <p>For the SRL Workshop, we have provided a docker image that includes the safe-control-gym. This is to prevent the need for manually installing any dependencies as you don’t have root access on the cluster.</p>
 <p>On the cluster, we use <a class="reference external" href="https://sylabs.io/guides/2.6/user-guide/index.html">singularity</a> to manage and work with docker images. Refer to the link for additional documentation. To get started, we need to pull the image from docker hub.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>module load singularity-ce-3.8.2
+singularity pull docker://roboticsworkshops/srl-workshop:env_image
+</pre></div>
+</div>
 <p>You should see the image being pulled down into the cluster. You should now see a .sif file in your current working directory call srl-workshop_env_image.sif.</p>
 <p>To use this image, you must use SLURM to run an interactive job or a job in the background.</p>
 <section id="interactive-session-w-singularity">
 <h2>Interactive Session w/ Singularity<a class="headerlink" href="#interactive-session-w-singularity" title="Permalink to this headline"></a></h2>
 <p>If you want to just explore the safe-control-gym or want to debug some code, it is best to run an interactive job. To get started, schedule an interactive job with srun</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>srun -c <span class="m">4</span> --gres<span class="o">=</span>gpu:1 --mem<span class="o">=</span>32GB --qos<span class="o">=</span>nopreemption -p interactive --pty bash
+</pre></div>
+</div>
 <p>You should now see that you are running on the node for the job.</p>
 <p>Now, you can run singularity exec on your image to start a session in the image.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>singularity shell --nv -B /path/to/your/cwd:/root srl-workshop_env_image bash
