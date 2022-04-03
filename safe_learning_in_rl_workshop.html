@@ -98,25 +98,27 @@ singularity <span class="nb">exec</span> --nv -B /path/to/your/cwd:/root srl-wor
 <p>This will execute your commands in the image with starting a shell session.</p>
 <p>Option 2: sbatch and job script</p>
 <p>Your job.sh will look something like this</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="c1">#SBATCH --ntasks=1</span>
+<span class="c1">#SBATCH --mem=24G</span>
+<span class="c1">#SBATCH -c 8</span>
+<span class="c1">#SBATCH --partition=t4v2</span>
+<span class="c1">#SBATCH --export=ALL</span>
+<span class="c1">#SBATCH --output=%x.%j.log</span>
+<span class="c1">#SBATCH --gres=gpu:1</span>
+
+hostname
+nvidia-smi
+
+module load cuda-11.0
+module load singularity-ce-3.8.2
+
+singularity <span class="nb">exec</span> --nv -B /path/to/your/cwd:/root <span class="se">\</span>
+                    bash -c <span class="se">\</span>
+                    <span class="s2">&quot;&lt;your command&gt;&quot;</span>
 </pre></div>
 </div>
-<p>#!/bin/bash
-#SBATCH –ntasks=1
-#SBATCH –mem=24G
-#SBATCH -c 8
-#SBATCH –partition=t4v2
-#SBATCH –export=ALL
-#SBATCH –output=%x.%j.log
-#SBATCH –gres=gpu:1</p>
-<p>hostname
-nvidia-smi</p>
-<p>module load cuda-11.0
-module load singularity-ce-3.8.2</p>
-<dl class="simple">
-<dt>singularity exec –nv -B /path/to/your/cwd:/root </dt><dd><p>bash -c “&lt;your command&gt;”</p>
-</dd>
-</dl>
+<p>Submit the job as usual</p>
 <p>Refer to the tutorial and README in the safe-control-gym to learn more about configuring and running experiments.</p>
 </section>
 </section>

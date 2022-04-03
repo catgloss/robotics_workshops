@@ -50,24 +50,28 @@ Your job.sh will look something like this
 
 .. code-block:: bash 
 
-#!/bin/bash
-#SBATCH --ntasks=1
-#SBATCH --mem=24G
-#SBATCH -c 8
-#SBATCH --partition=t4v2
-#SBATCH --export=ALL
-#SBATCH --output=%x.%j.log
-#SBATCH --gres=gpu:1
+   #!/bin/bash
+   #SBATCH --ntasks=1
+   #SBATCH --mem=24G
+   #SBATCH -c 8
+   #SBATCH --partition=t4v2
+   #SBATCH --export=ALL
+   #SBATCH --output=%x.%j.log
+   #SBATCH --gres=gpu:1
 
-hostname
-nvidia-smi
+   hostname
+   nvidia-smi
 
-module load cuda-11.0
-module load singularity-ce-3.8.2
+   module load cuda-11.0
+   module load singularity-ce-3.8.2
 
-singularity exec --nv -B /path/to/your/cwd:/root \
-                    bash -c \
-                    "<your command>"
+   singularity exec --nv -B /path/to/your/cwd:/root \
+                       bash -c \
+                       "<your command>"
+Submit the job as usual 
+
+.. code-block:: bash
+   sbatch job.sh
 
 Refer to the tutorial and README in the safe-control-gym to learn more about configuring and running experiments. 
    
