@@ -56,11 +56,7 @@ You are automatically in your profile's home directory. If you ever need to chec
    
    pwd
 
-and your current directory will be spit out
-
-To test if everything is setup correctly, you can run the following script: 
-
-* TODO *
+and your current directory will be spit out.
 
 Working on the Cluster 
 ----------------------
@@ -124,6 +120,8 @@ Finally, to cancel a job
    
    scancel JOBID
 
+To test if everything is setup correctly, you can create a test script using the above default script with your own commands make sure the job is scheduled, you can see it queued and running, and can cancel it then you're good to go with continuing your development. 
+
 Pre-emption & Checkpointing
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -165,9 +163,9 @@ To deactivate, just execute `deactivate` in the command line.
 (Optional) Vector VPN
 ---------------------
 
-The Vector VPN can be used to create an extra layer of security. Specifically, it can be used if you want to work on Jupyter Notebooks but have it be run on the cluster. 
+The Vector VPN can be used to create an extra layer of security. Specifically, it can be used if you want to work on Jupyter Notebooks but have it be run on the cluster.
 
-* TODO *
+To set up the VPN
 
 (Optional) VS Code Setup 
 -------------------------
