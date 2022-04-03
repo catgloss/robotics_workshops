@@ -163,9 +163,9 @@ To deactivate, just execute `deactivate` in the command line.
 (Optional) Vector VPN
 ---------------------
 
-The Vector VPN can be used to create an extra layer of security. Specifically, it can be used if you want to work on Jupyter Notebooks but have it be run on the cluster.
+The Vector VPN can be used to create an extra layer of security. Specifically, it can be used if you want to work with Jupyter Notebooks but have it be run on the cluster.
 
-To set up the VPN
+If you feel the need to use the VPN, please follow the steps available through the Vector Computing wiki (`vaughan <https://support.vectorinstitute.ai/Vaughan_SSL_VPN_and_JupyterHub>`_), (`MaRS <https://support.vectorinstitute.ai/MaRS_SSL_VPN>`_)
 
 (Optional) VS Code Setup 
 -------------------------
